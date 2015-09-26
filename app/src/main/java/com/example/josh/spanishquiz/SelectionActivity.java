@@ -19,12 +19,14 @@ public class SelectionActivity extends AppCompatActivity {
     private String[] items;
     private ListView listView;
     private ArrayList<Integer> SelectedItems;
+    private SpanishFileHelper fileHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
+        fileHelper = new SpanishFileHelper();
         SelectedItems = new ArrayList<Integer>();
 
         //create the listview
@@ -54,6 +56,7 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
+        /*
         Button beginButton = (Button) findViewById( R.id.button2 );
         beginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +68,7 @@ public class SelectionActivity extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
 
 

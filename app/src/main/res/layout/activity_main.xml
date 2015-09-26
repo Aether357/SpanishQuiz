@@ -8,7 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#58150724"
+        android:background="#12150724"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
+            android:text="Hola"
             android:id="@+id/textView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -26,9 +26,25 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Next"
+            android:id="@+id/nextButton"
+            android:layout_gravity="right|bottom"
+            android:shadowColor="#1e16ff" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flip"
+            android:id="@+id/flipButton"
+            android:layout_gravity="center_horizontal|bottom"
+            android:shadowColor="#1e16ff" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="New Button"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal|bottom" />
+            android:layout_gravity="left|top" />
 
     </FrameLayout>
 

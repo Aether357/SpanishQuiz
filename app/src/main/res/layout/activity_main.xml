@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Hola"
-            android:id="@+id/textView"
+            android:id="@+id/cardText"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center" />
@@ -38,13 +38,6 @@
             android:id="@+id/flipButton"
             android:layout_gravity="center_horizontal|bottom"
             android:shadowColor="#1e16ff" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_gravity="left|top" />
 
     </FrameLayout>
 

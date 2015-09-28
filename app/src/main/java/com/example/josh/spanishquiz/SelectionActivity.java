@@ -1,17 +1,18 @@
 package com.example.josh.spanishquiz;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class SelectionActivity extends AppCompatActivity {
@@ -19,66 +20,102 @@ public class SelectionActivity extends AppCompatActivity {
     private String[] items;
     private ListView listView;
     private ArrayList<Integer> SelectedItems;
-    private SpanishFileHelper fileHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
-        fileHelper = new SpanishFileHelper();
-        SelectedItems = new ArrayList<Integer>();
+        ArrayList<String> wordBankFiles = new ArrayList<>();
+        Field[] fields = R.raw.class.getFields();
+        //get all filenames
+        for( Field field: fields )
+        {
+            wordBankFiles.add( field.getName() );
+        }
+        String[] selectedItemsarray = wordBankFiles.toArray(new String[wordBankFiles.size()]);
 
         //create the listview
-        items = new String[] { "Test1", "Test2", "Test3"};
-        ListAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_selection,
-                                R.id.textView2, items);
+        final WordBankAdapter adapter = new WordBankAdapter(this, R.layout.listlayout,
+                                R.id.textView3, selectedItemsarray);
 
         //get reference to listview
         listView = (ListView) findViewById( R.id.listView );
         listView.setAdapter(adapter);
 
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if( SelectedItems.contains( position ) )
-                {
-                    view.setBackgroundColor( Color.WHITE );
-                    SelectedItems.remove( new Integer( position ) );
-                }
-                else
-                {
-                    view.setBackgroundColor(Color.GREEN);
-                    SelectedItems.add( position );
-                }
-            }
-        });
-
-        /*
-        Button beginButton = (Button) findViewById( R.id.button2 );
-        beginButton.setOnClickListener(new View.OnClickListener() {
+        Button beginButton = (Button) findViewById( R.id.flashcardButton );
+        beginButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 // load up flashcards based on the SelectedItems
-                if( SelectedItems.size() > 0 )
+                ArrayList<FlashCard> flashCards = new ArrayList<>();
+                for (String string: adapter.getSelectedWordbanks() )
                 {
-                    //have items to load, try and get them
+                    loadFlashCards( flashCards, string );
+                }
+                if( flashCards.size() > 0 )
+                {
+                    //create all the flashcards
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
+                    i.putExtra("flashcards", flashCards);
+                    startActivity(i);
                 }
             }
-        });*/
+        });
 
 
 
 
     }
 
+    private void loadFlashCards( ArrayList<FlashCard> cards, String wordbank )
+    {
+        Field[] fields = R.raw.class.getFields();
+
+        //get all filenames
+        for( Field field: fields )
+        {
+            if( field.getName().equals(wordbank) )
+            {
+                try {
+                    ArrayList<FlashCard> addCards = getAllFlashCards( field.getInt( field ));
+                    cards.addAll( addCards );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private ArrayList<FlashCard> getAllFlashCards( int res )
+    {
+        ArrayList<FlashCard> flashCards = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader( new InputStreamReader( getResources().openRawResource(res) ));
+            String line;
+
+            while((line = br.readLine()) != null)
+            {
+                String[] s = line.split(":");
+                if( s.length == 2 )
+                {
+                    flashCards.add( new FlashCard(s[0].trim(), s[1].trim()));
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return flashCards;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selection, menu);
+       // getMenuInflater().inflate(R.menu.menu_selection, menu);
         return true;
     }
 
@@ -87,13 +124,14 @@ public class SelectionActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+       /* int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);*/
+        return true;
     }
 }

@@ -12,11 +12,13 @@ public class FlashCard implements Serializable
 {
     private String spanish;
     private String english;
+    private boolean isSpanish;
 
     FlashCard( String spanish, String english )
     {
-        this.spanish =  spanish;
+        this.spanish = spanish;
         this.english = english;
+        this.isSpanish = false;
     }
 
     public String getEnglishText()
@@ -27,5 +29,15 @@ public class FlashCard implements Serializable
     public String getSpanishText()
     {
         return spanish;
+    }
+
+    public boolean isSpanishText()
+    {
+        return isSpanish;
+    }
+
+    public void setIsSpanish( boolean isSpanish )
+    {
+        this.isSpanish = isSpanish;
     }
 }

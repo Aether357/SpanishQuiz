@@ -13,7 +13,9 @@
         </activity>
         <activity
             android:name=".SelectionActivity"
-            android:label="@string/title_activity_selection" >
+            android:label="@string/title_activity_selection"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SelectionActivity extends AppCompatActivity {
 
@@ -33,6 +35,27 @@ public class SelectionActivity extends AppCompatActivity {
         {
             wordBankFiles.add( field.getName() );
         }
+        Collections.sort(wordBankFiles, new Comparator<String>() {
+            @Override
+            public int compare(String lhs, String rhs) {
+                int lhi = Integer.parseInt(lhs.substring(lhs.length() - 1, lhs.length()));
+                int rhi = Integer.parseInt(rhs.substring(rhs.length()-1, rhs.length()));
+
+                if( lhi < rhi )
+                {
+                    return -1;
+                }
+                else if( lhi == rhi )
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+        });
+
         String[] selectedItemsarray = wordBankFiles.toArray(new String[wordBankFiles.size()]);
 
         //create the listview

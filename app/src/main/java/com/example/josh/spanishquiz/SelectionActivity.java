@@ -39,7 +39,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public int compare(String lhs, String rhs) {
                 int lhi = Integer.parseInt(lhs.substring(lhs.length() - 1, lhs.length()));
-                int rhi = Integer.parseInt(rhs.substring(rhs.length()-1, rhs.length()));
+                int rhi = Integer.parseInt(rhs.substring(rhs.length() - 1, rhs.length()));
 
                 if( lhi < rhi )
                 {

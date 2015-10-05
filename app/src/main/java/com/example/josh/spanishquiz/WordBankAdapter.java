@@ -71,6 +71,16 @@ public class WordBankAdapter extends ArrayAdapter<String>
 
             if (checkBox != null)
             {
+                if( selectedWordbanks.contains(p) )
+                {
+                    checkBox.setChecked( true );
+                    text.setTextColor(Color.BLUE);
+                }
+                else
+                {
+                    checkBox.setChecked( false );
+                    text.setTextColor(Color.BLACK);
+                }
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v)

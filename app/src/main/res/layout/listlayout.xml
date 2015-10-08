@@ -31,5 +31,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:paddingRight="5dp"/>
 </RelativeLayout>

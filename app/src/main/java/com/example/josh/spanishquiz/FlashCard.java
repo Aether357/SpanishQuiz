@@ -21,6 +21,13 @@ public class FlashCard implements Serializable
         this.isSpanish = false;
     }
 
+    FlashCard (FlashCard flashCard)
+    {
+        this.spanish = flashCard.getSpanishText();
+        this.english = flashCard.getEnglishText();
+        this.isSpanish = flashCard.isSpanishText();
+    }
+
     public String getEnglishText()
     {
         return english;

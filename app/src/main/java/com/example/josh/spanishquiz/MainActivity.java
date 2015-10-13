@@ -17,21 +17,27 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<FlashCard> flashCards;
     private TextView cardText;
     private FlashCard currentCard;
+    private Button restartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        flashCards = (ArrayList<FlashCard>) getIntent().getSerializableExtra("flashcards");
 
-        cardText = (TextView) findViewById(R.id.cardText);
-        currentCard = null;
-
-        displayNewCard();
 
         Button flipButton = (Button) findViewById( R.id.flipButton );
         Button nextButton = (Button) findViewById( R.id.nextButton);
+        restartButton = (Button) findViewById( R.id.restartButton);
+
+        restart();
+
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restart();
+            }
+        });
 
         flipButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +52,23 @@ public class MainActivity extends AppCompatActivity {
                 displayNewCard();
             }
         });
+    }
+
+    private void restart()
+    {
+        restartButton.setVisibility(View.INVISIBLE);
+        ArrayList<FlashCard> flashCardsT = (ArrayList<FlashCard>) getIntent().getSerializableExtra("flashcards");
+
+        flashCards = new ArrayList<FlashCard>();
+        for( FlashCard flashCard : flashCardsT )
+        {
+            flashCards.add( new FlashCard(flashCard) );
+        }
+        
+        cardText = (TextView) findViewById(R.id.cardText);
+        currentCard = null;
+
+        displayNewCard();
     }
 
     private void displayNewCard()
@@ -78,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
     private void finished()
     {
         cardText.setText( "Finished" );
+        restartButton.setVisibility(View.VISIBLE);
+
     }
 
     private void flipCard()

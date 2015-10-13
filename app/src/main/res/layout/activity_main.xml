@@ -39,6 +39,13 @@
             android:layout_gravity="center_horizontal|bottom"
             android:shadowColor="#1e16ff" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:id="@+id/restartButton"
+            android:layout_gravity="left|bottom" />
+
     </FrameLayout>
 
 </RelativeLayout>
